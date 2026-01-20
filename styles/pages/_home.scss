@@ -1,2 +1,194 @@
 @use "../globals" as *;
 @use "../parts/common" as *;
+
+.travel {
+  @extend .content-width;
+  @extend .mb-lg;
+
+  &__inner {
+    position: relative;
+    z-index: 0;
+    @extend .flex;
+    justify-content: space-between;
+    background: $cBgGray;
+    padding: 15px;
+
+    @include mq(md) {
+      padding: 50px;
+    }
+
+    @include mq(xl) {
+      padding: 50px 150px;
+    }
+  }
+
+  &__img {
+    @extend .mb-sm;
+    height: 300px;
+    box-shadow: inset 0 0 30px $cBlack;
+    @include mq(md) {
+      flex-basis: 47%;
+    }
+
+    @include mq(lg) {
+      height: 400px;
+    }
+
+    & > img {
+      position: relative;
+      z-index: -1;
+      opacity: 1;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__texts {
+    @extend .pb-sm;
+    @include mq(md) {
+      display: flex;
+      align-items: flex-end;
+      flex-basis: 47%;
+    }
+
+    &.inview {
+      & .travel__title {
+        &::before {
+          @include animation($name: scaleX, $duration: 0.3s, $delay: 1.5s);
+        }
+      }
+    }
+  }
+
+  &__title {
+    position: relative;
+
+    &::before {
+      display: none;
+      position: absolute;
+      content: "";
+      height: 1px;
+      width: 100px;
+      top: 50%;
+      left: -120px;
+      background: $cBlack;
+      transform: scaleX(0);
+      transform-origin: right;
+
+      @include mq(lg) {
+        display: block;
+      }
+    }
+  }
+
+  &__description {
+    @include mq(lg) {
+      margin-bottom: 40px;
+    }
+  }
+}
+
+@keyframes scaleX {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.houses {
+  @extend .content-width;
+  @extend .mb-lg;
+
+  &__inner {
+    @extend .flex;
+  }
+
+  &__title {
+    @extend .mb-sm;
+    @extend .font-lr;
+  }
+
+  &__item {
+    @include mq(md) {
+      flex-basis: 50%;
+    }
+    @include mq(lg) {
+      margin-bottom: 60px;
+    }
+  }
+
+  &__btn {
+    text-align: center;
+    flex-basis: 100%;
+  }
+}
+
+.popular {
+  &__header {
+    @extend .content-width;
+  }
+
+  &__inner {
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 90%;
+      width: 100%;
+      background: $cBgGray;
+    }
+  }
+
+  &__container {
+    position: relative;
+    z-index: 2;
+    @extend .content-width;
+    @extend .flex;
+    justify-content: space-between;
+  }
+
+  &__item {
+    @include mq(md) {
+      flex-basis: 47%;
+    }
+    @include mq(lg) {
+      flex-basis: 25%;
+    }
+    @include mq(xl) {
+      flex-basis: 23%;
+    }
+  }
+
+  &__title {
+    @extend .mb-sm;
+    @extend .font-md;
+  }
+
+  &__img {
+    height: 150px;
+    margin-bottom: 5px;
+
+    @include mq(lg) {
+      height: 335px;
+    }
+
+    & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  &__btn {
+    text-align: center;
+    flex-basis: 100%;
+    @extend .mb-lg;
+  }
+}
