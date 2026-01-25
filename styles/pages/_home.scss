@@ -5,7 +5,19 @@
   position: relative;
   z-index: 10;
   background: $cWhite;
-  transition: transform 0.5s, box-shadow 0.5s;
+  transition:
+    transform 0.5s,
+    box-shadow 0.5s;
+}
+
+#main-content {
+  position: relative;
+  z-index: 0;
+}
+
+main {
+  position: relative;
+  z-index: -1;
 }
 
 .header {
@@ -318,5 +330,67 @@
 
   &__world {
     color: $cWineRed;
+  }
+}
+
+.side {
+  display: none;
+  position: fixed;
+  top: 70%;
+  transform: translateY(-50%);
+
+  @include mq(xl) {
+    display: block;
+  }
+
+  & .tween-animate-title {
+    color: $cBlack;
+    text-decoration: none !important;
+    margin: 0 40px;
+    vertical-align: middle;
+    letter-spacing: 2px;
+  }
+
+  &.left {
+    left: 50px;
+
+    & .side__inner {
+      transform-origin: top left;
+      transform: rotate(-90deg);
+    }
+  }
+
+  &.right {
+    right: 50px;
+
+    & .side__inner {
+      transform-origin: top right;
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.icon {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -20px;
+    width: 1em;
+    height: 1em;
+    transform: translateY(-50%);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  &.twitter::before {
+    background-image: url(../images/twitter.svg);
+  }
+
+  &.fb::before {
+    background-image: url(../images/facebook.svg);
   }
 }
