@@ -1,66 +1,65 @@
-document.addEventListener("DOMContentLoaded", function () {
-  new Main();
-});
-
 class Main {
+  #observers;
+
   constructor() {
     this.header = document.querySelector(".header");
     this.hero = new HeroSlider(".swiper");
     this.sides = document.querySelectorAll(".side");
-    this._observers = [];
-    this._init();
+    this.#observers = [];
+    this.#init();
   }
 
-  _init() {
+  #init = () => {
     new MobileMenu();
-    Pace.on("done", this._scrollInit.bind(this));
-  }
+    Pace.on("done", this.#scrollInit);
+  };
 
-  destroy() {
-    this._observers.forEach((so) => so.destroy());
-  }
+  destroy = () => {
+    this.#observers.forEach((so) => so.destroy());
+  };
 
-  _scrollInit() {
-    this._observers.push(
-      new ScrollObserver("#main-content", this._sideAnimation.bind(this), {
+  #scrollInit = () => {
+    this.#observers.push(
+      new ScrollObserver("#main-content", this.#sideAnimation, {
         once: false,
         rootMargin: "-300px 0px",
       }),
-      new ScrollObserver(".swiper", this._toggleSlideAnimation.bind(this), {
+      new ScrollObserver(".swiper", this.#toggleSlideAnimation, {
         once: false,
       }),
-      new ScrollObserver(".tween-animate-title", this._textAnimation),
-      new ScrollObserver(".nav-trigger", this._navAnimation.bind(this), {
+      new ScrollObserver(".tween-animate-title", this.#textAnimation),
+      new ScrollObserver(".nav-trigger", this.#navAnimation, {
         once: false,
       }),
-      new ScrollObserver(".cover-slide", this._inviewAnimation),
+      new ScrollObserver(".cover-slide", this.#inviewAnimation),
+      new ScrollObserver(".appear", this.#inviewAnimation),
     );
-  }
+  };
 
-  _toggleSlideAnimation(el, inview) {
+  #toggleSlideAnimation = (el, inview) => {
     if (inview) {
       this.hero.start();
     } else {
       this.hero.stop();
     }
-  }
+  };
 
-  _textAnimation(el, inview) {
+  #textAnimation = (el, inview) => {
     if (inview) {
       const ta = new TweenTextAnimation(el);
       ta.animate();
     }
-  }
+  };
 
-  _navAnimation(el, inview) {
+  #navAnimation = (el, inview) => {
     if (inview) {
       this.header.classList.remove("triggered");
     } else {
       this.header.classList.add("triggered");
     }
-  }
+  };
 
-  _sideAnimation = function (el, inview) {
+  #sideAnimation = (el, inview) => {
     if (inview) {
       this.sides.forEach((side) => side.classList.add("inview"));
     } else {
@@ -68,7 +67,7 @@ class Main {
     }
   };
 
-  _inviewAnimation = function (el, inview) {
+  #inviewAnimation = (el, inview) => {
     if (inview) {
       el.classList.add("inview");
     } else {
@@ -76,3 +75,5 @@ class Main {
     }
   };
 }
+
+new Main();
