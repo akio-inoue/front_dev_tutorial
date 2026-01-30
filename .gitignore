@@ -4,3 +4,6 @@ Thumbs.db
 
 # Compiled CSS files
 /styles/*.css
+
+# Ignore all files in docs folder
+docs/
