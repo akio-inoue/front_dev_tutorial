@@ -2,7 +2,6 @@ import '../styles/vendors/css-reset.css';
 import '../styles/vendors/swiper-bundle.min.css';
 import '../styles/style.css';
 import Pace from 'pace-js';
-
 Pace.start();
 
 import { HeroSlider } from './libs/hero-slider';
@@ -18,14 +17,12 @@ class Main {
     this.hero = new HeroSlider('.swiper');
     this.sides = document.querySelectorAll('.side');
     this.#observers = [];
+    this.#init();
+  }
 
-    Pace.once('done', () => {
-      console.log('Pace done!');
-      this.#scrollInit();
-    });
-
-
+  #init() {
     new MobileMenu();
+    Pace.on('done', this.#scrollInit.bind(this));
   }
 
   destroy = () => {
