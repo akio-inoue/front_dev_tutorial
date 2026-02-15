@@ -1,4 +1,8 @@
-class HeroSlider {
+import Swiper, { Autoplay, EffectCoverflow } from 'swiper';
+// import 'swiper/css';
+// import 'swiper/css/effect-coverflow';
+
+export class HeroSlider {
     constructor(el) {
         this.el = el;
         this.swiper = this._initSwiper();
@@ -8,6 +12,7 @@ class HeroSlider {
         return new Swiper(this.el, {
             // Optional parameters
             // direction: 'vertical',
+            modules: [Autoplay, EffectCoverflow],
             loop: true,
             grabCursor: true,
             effect: 'coverflow',
@@ -27,7 +32,7 @@ class HeroSlider {
             delay: 4000,
             disableOnInteraction: false
         }, options);
-        
+
         this.swiper.params.autoplay = options;
         this.swiper.autoplay.start();
     }
